@@ -1,7 +1,6 @@
 package com.saitama.rentbikes.activities;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,19 +27,28 @@ import com.saitama.rentbikes.utils.Utils;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RentBicycleActivity extends AppCompatActivity {
 
     // UI Elements
+    @BindView(R.id.tv_place_title)
     TextView tvPlaceTitle;
+    @BindView(R.id.et_card_number)
     EditText etCardNumber;
+    @BindView(R.id.et_name_on_card)
     EditText etNameOnCard;
+    @BindView(R.id.et_month)
     EditText etMonth;
+    @BindView(R.id.et_year)
     EditText etYear;
+    @BindView(R.id.et_code)
     EditText etCode;
+    @BindView(R.id.btn_pay)
     Button btnPay;
 
     View mProgressView;
@@ -61,10 +69,9 @@ public class RentBicycleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_bicycle);
-        placeId = getIntent().getStringExtra(Const.PLACEID.getValue());
-        placeTitle = getIntent().getStringExtra(Const.TITLE.getValue());
-
-        setUI();
+        getDataIntent();
+        ButterKnife.bind(this);
+        setupUI();
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,22 +84,18 @@ public class RentBicycleActivity extends AppCompatActivity {
 
     }
 
+    private void getDataIntent() {
+        placeId = getIntent().getStringExtra(Const.PLACEID.getValue());
+        placeTitle = getIntent().getStringExtra(Const.TITLE.getValue());
+    }
+
     /**
      * Setup the UI elements
      */
-    private void setUI() {
-
-        tvPlaceTitle = (TextView) findViewById(R.id.tv_place_title);
-        etCardNumber = (EditText) findViewById(R.id.et_card_number);
-        etNameOnCard = (EditText) findViewById(R.id.et_name_on_card);
-        etMonth = (EditText) findViewById(R.id.et_month);
-        etYear = (EditText) findViewById(R.id.et_year);
-        etCode = (EditText) findViewById(R.id.et_code);
-        btnPay = (Button) findViewById(R.id.btn_pay);
+    private void setupUI() {
 
         formView = findViewById(R.id.view_pay);
         mProgressView = findViewById(R.id.view_progress_pay);
-
         tvPlaceTitle.setText(placeTitle);
 
     }

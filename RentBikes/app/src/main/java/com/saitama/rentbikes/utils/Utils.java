@@ -6,6 +6,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,15 +32,22 @@ public class Utils {
     }
 
     public static void setAccessToken(Context ctx, String cid) {
-        SharedPreferences pref = ctx.getSharedPreferences(Const.SHARED_PREFERENCES_NAME.getValue(), 0); // 0 - for private mode
+        SharedPreferences pref = ctx.getSharedPreferences(Const.SHARED_PREFERENCES_NAME.getValue(), 0);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(Const.ACCESSTOKEN.getValue(), cid);
+
+        Log.i("ACCESSTOKEN = ", Const.ACCESSTOKEN.getValue());
+        Log.i("encrypt(ACCESSTOKEN) = ", encrypt(Const.ACCESSTOKEN.getValue()));
+
+        Log.i("cid = ", cid);
+        Log.i("encrypt(cid) = ", encrypt(cid));
+
+        editor.putString(encrypt(Const.ACCESSTOKEN.getValue()), encrypt(cid));
         editor.commit();
     }
 
     public static String getAccessToken(Context ctx) {
-        SharedPreferences pref = ctx.getSharedPreferences(Const.SHARED_PREFERENCES_NAME.getValue(), 0); // 0 - for private mode
-        return pref.getString(Const.ACCESSTOKEN.getValue(), "");
+        SharedPreferences pref = ctx.getSharedPreferences(Const.SHARED_PREFERENCES_NAME.getValue(), 0);
+        return decrypt(pref.getString(encrypt(Const.ACCESSTOKEN.getValue()), ""));
     }
 
     /**
@@ -75,6 +84,22 @@ public class Utils {
             progressView.setVisibility(show ? View.VISIBLE : View.GONE);
             formView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    /**
+     * @param input String to be encrypted
+     * @return Encripted string
+     */
+    public static String encrypt(String input) {
+        return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);
+    }
+
+    /**
+     * @param input String to be decrypted
+     * @return Decrypted string
+     */
+    public static String decrypt(String input) {
+        return new String(Base64.decode(input, Base64.DEFAULT));
     }
 
 }

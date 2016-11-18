@@ -32,6 +32,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * @author gabrielvega
  * @version 1.0.0
@@ -47,11 +50,18 @@ public class SignupActivity extends AppCompatActivity {
     /**
      * UI references
      */
-    private View mProgressView;
-    private View mSignupFormView;
-    private EditText etEmail;
-    private EditText etPassword;
-    Button btnSignup;
+
+
+    @BindView(R.id.signup_progress)
+    protected View mProgressView;
+    @BindView(R.id.signup_form)
+    protected View mSignupFormView;
+    @BindView(R.id.et_email)
+    protected EditText etEmail;
+    @BindView(R.id.et_password)
+    protected EditText etPassword;
+    @BindView(R.id.email_sign_up_button)
+    protected Button btnSignup;
 
     /**
      * SharedPreferences editor
@@ -74,23 +84,15 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_signup);
-        setUI();
-
+        ButterKnife.bind(this);
+        setupUI();
     }
 
     /**
      * Set up the signup form UI.
      */
-    private void setUI() {
-
-        mSignupFormView = findViewById(R.id.signup_form);
-        mProgressView = findViewById(R.id.signup_progress);
-
-        etEmail = (EditText) findViewById(R.id.et_email);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        btnSignup = (Button) findViewById(R.id.email_sign_up_button);
+    private void setupUI() {
 
         etPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.signup || id == EditorInfo.IME_NULL) {
@@ -113,6 +115,7 @@ public class SignupActivity extends AppCompatActivity {
         // Reset errors.
         etEmail.setError(null);
         etPassword.setError(null);
+        cancel = false;
 
         // Store values at the time of the signup attempt.
         String email = etEmail.getText().toString();

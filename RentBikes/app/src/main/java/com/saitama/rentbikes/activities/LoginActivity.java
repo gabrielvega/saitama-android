@@ -33,6 +33,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * @author gabrielvega
  * @version 1.0.0
@@ -48,12 +51,23 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * UI references
      */
-    private View mProgressView;
-    private View mLoginFormView;
-    private EditText etEmail;
-    private EditText etPassword;
-    private Button btnSignin;
-    private TextView tvSignup;
+    @BindView(R.id.login_progress)
+    protected View mProgressView;
+
+    @BindView(R.id.login_form)
+    protected View mLoginFormView;
+
+    @BindView(R.id.et_email)
+    protected EditText etEmail;
+
+    @BindView(R.id.et_password)
+    protected EditText etPassword;
+
+    @BindView(R.id.email_sign_in_button)
+    protected Button btnSignin;
+
+    @BindView(R.id.tv_sign_up_button)
+    protected TextView tvSignup;
 
     /**
      * SharedPreferences editor
@@ -75,28 +89,31 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
-        setUI();
+        ButterKnife.bind(this);
+        checkToken();
+        setupUI();
 
+    }
+
+    private void checkToken() {
+        if (Utils.getAccessToken(getApplicationContext()) != null) {
+            Utils.toast("Welcome back!", 0, getApplicationContext());
+            mapsIntent();
+        }
+    }
+
+    private void mapsIntent() {
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(i);
     }
 
     /**
      * Set up the signin form UI.
      */
-    private void setUI() {
-
-        mProgressView = findViewById(R.id.login_progress);
-        mLoginFormView = findViewById(R.id.login_form);
-        etEmail = (EditText) findViewById(R.id.et_email);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        tvSignup = (TextView) findViewById(R.id.tv_sign_up_button);
-
-        tvSignup.setOnClickListener(view -> {
-            Intent i = new Intent(getApplicationContext(), SignupActivity.class);
-            startActivity(i);
-        });
+    private void setupUI() {
 
         etPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -108,6 +125,11 @@ public class LoginActivity extends AppCompatActivity {
 
         btnSignin = (Button) findViewById(R.id.email_sign_in_button);
         btnSignin.setOnClickListener(view -> attemptLogin());
+
+        tvSignup.setOnClickListener(view -> {
+            Intent i = new Intent(getApplicationContext(), SignupActivity.class);
+            startActivity(i);
+        });
     }
 
     /**
@@ -120,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         // Reset errors.
         etEmail.setError(null);
         etPassword.setError(null);
+        cancel = false;
 
         // Store values at the time of the login attempt.
         String email = etEmail.getText().toString();
@@ -180,8 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
                             Utils.toast("Welcome back!", 0, getApplicationContext());
-                            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-                            startActivity(i);
+                            mapsIntent();
                         }
                     }
                 }, new Response.ErrorListener() {
