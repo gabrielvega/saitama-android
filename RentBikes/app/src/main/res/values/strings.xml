@@ -4,18 +4,25 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
+    <string name="btn_sign_in">Sign in</string>
     <string name="action_sign_up">New User? Sign up</string>
     <string name="error_invalid_email">This email is too short</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="title_activity_maps">Saitama Bicycles Rent</string>
     <string name="my_position">My position</string>
 
-<!-- Strings related to rent -->
+    <!-- Strings related to places (map) -->
+    <string name="title_activity_maps">Saitama Bicycles Rent</string>
+
+    <!-- Strings related to rent -->
     <string name="error_invalid_card_number">This card number is invalid</string>
     <string name="error_invalid_month">This month is invalid</string>
     <string name="error_invalid_year">This year is invalid</string>
     <string name="error_invalid_code">This code is invalid</string>
+
+    <!-- Strings related to signup -->
+    <string name="title_activity_signup">Signup</string>
+    <string name="btn_sign_up">Sign up</string>
+
 </resources>

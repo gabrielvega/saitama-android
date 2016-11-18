@@ -186,8 +186,7 @@ public class RentBicycleActivity extends AppCompatActivity {
                         Utils.toast("Sorry, try again.", 0, getApplicationContext());
                     } else {
                         Utils.toast(rentResponse.getMessage(), 0, getApplicationContext());
-                        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-                        startActivity(i);
+                        finish();
                     }
                 }
             }, new Response.ErrorListener() {

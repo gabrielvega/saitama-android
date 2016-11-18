@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,8 +22,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.saitama.rentbikes.R;
-import com.saitama.rentbikes.models.LoginResponse;
 import com.saitama.rentbikes.models.ResponseError;
+import com.saitama.rentbikes.models.SignupResponse;
 import com.saitama.rentbikes.utils.Utils;
 
 import org.json.JSONObject;
@@ -41,19 +40,18 @@ import java.util.Map;
  */
 
 /**
- * A login screen that offers login via email/password.
+ * A signup screen that offers signup via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     /**
      * UI references
      */
     private View mProgressView;
-    private View mLoginFormView;
+    private View mSignupFormView;
     private EditText etEmail;
     private EditText etPassword;
-    private Button btnSignin;
-    private TextView tvSignup;
+    Button btnSignup;
 
     /**
      * SharedPreferences editor
@@ -69,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     View focusView = null;
 
     /**
-     * Login URL
+     * Signup URL
      */
     private String api;
 
@@ -77,51 +75,46 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
         setUI();
 
     }
 
     /**
-     * Set up the signin form UI.
+     * Set up the signup form UI.
      */
     private void setUI() {
 
-        mProgressView = findViewById(R.id.login_progress);
-        mLoginFormView = findViewById(R.id.login_form);
+        mSignupFormView = findViewById(R.id.signup_form);
+        mProgressView = findViewById(R.id.signup_progress);
+
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
-        tvSignup = (TextView) findViewById(R.id.tv_sign_up_button);
-
-        tvSignup.setOnClickListener(view -> {
-            Intent i = new Intent(getApplicationContext(), SignupActivity.class);
-            startActivity(i);
-        });
+        btnSignup = (Button) findViewById(R.id.email_sign_up_button);
 
         etPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                attemptLogin();
+            if (id == R.id.signup || id == EditorInfo.IME_NULL) {
+                attemptSignup();
                 return true;
             }
             return false;
         });
 
-        btnSignin = (Button) findViewById(R.id.email_sign_in_button);
-        btnSignin.setOnClickListener(view -> attemptLogin());
+        btnSignup.setOnClickListener(view -> attemptSignup());
     }
 
     /**
-     * Attempts to sign in the account specified by the login form.
+     * Attempts signup the account specified by the signup form.
      * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * errors are presented and no actual signup attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptSignup() {
 
         // Reset errors.
         etEmail.setError(null);
         etPassword.setError(null);
 
-        // Store values at the time of the login attempt.
+        // Store values at the time of the signup attempt.
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
@@ -145,12 +138,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
+            // There was an error; don't attempt signup and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+            // perform the user signup attempt.
             showProgress(true);
 
             String mEmail = etEmail.getText().toString().trim();
@@ -160,26 +153,26 @@ public class LoginActivity extends AppCompatActivity {
             try {
 
                 requestQueue = Volley.newRequestQueue(getApplicationContext());
-                api = getString(R.string.url_base) + getString(R.string.signin);
+                api = getString(R.string.url_base) + getString(R.string.signup);
 
                 Map<String, String> params = new HashMap<>();
                 params.put("email", mEmail.trim());
                 params.put("password", mPassword.trim());
 
-                final JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, api, new JSONObject(params), new Response.Listener<JSONObject>() {
+                final JsonObjectRequest signupRequest = new JsonObjectRequest(Request.Method.POST, api, new JSONObject(params), new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Gson gson = new Gson();
-                        LoginResponse loginResponse = gson.fromJson(response.toString(),
-                                LoginResponse.class);
+                        SignupResponse signupResponse = gson.fromJson(response.toString(),
+                                SignupResponse.class);
 
 
-                        if (loginResponse.getAccessToken() == null) {
+                        if (signupResponse.getAccessToken() == null) {
                             Utils.toast("Sorry, try again.", 0, getApplicationContext());
                         } else {
-                            Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
-                            Utils.toast("Welcome back!", 0, getApplicationContext());
+                            Utils.setAccessToken(getApplicationContext(), signupResponse.getAccessToken());
+                            Utils.toast("Welcome!", 0, getApplicationContext());
                             Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                             startActivity(i);
                         }
@@ -215,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 //add to the request queue
-                requestQueue.add(loginRequest);
+                requestQueue.add(signupRequest);
 
             } catch (Exception e) {
                 Utils.toast("Sorry, try again later.", 0, getApplicationContext());
@@ -239,11 +232,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * Shows the progress UI and hides the signup form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        Utils.showProgress(getApplicationContext(), mLoginFormView, mProgressView, show);
+        Utils.showProgress(getApplicationContext(), mSignupFormView, mProgressView, show);
 
     }
 }
