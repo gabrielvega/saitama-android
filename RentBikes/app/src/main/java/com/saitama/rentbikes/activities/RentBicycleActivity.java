@@ -28,6 +28,7 @@ import com.saitama.rentbikes.utils.Utils;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,6 @@ public class RentBicycleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_bicycle);
-
         placeId = getIntent().getStringExtra(Const.PLACEID.getValue());
         placeTitle = getIntent().getStringExtra(Const.TITLE.getValue());
 
@@ -133,7 +133,7 @@ public class RentBicycleActivity extends AppCompatActivity {
             etMonth.setError(getString(R.string.error_field_required));
             focusView = etMonth;
             cancel = true;
-        } else if (month.length() != 2) {
+        } else if (month.length() != 2 | Integer.parseInt(month) < 1 | Integer.parseInt(month) > 12) {
             etMonth.setError(getString(R.string.error_invalid_month));
             focusView = etMonth;
             cancel = true;
