@@ -104,6 +104,7 @@ public class RentBicycleActivity extends AppCompatActivity {
         etMonth.setError(null);
         etYear.setError(null);
         etCode.setError(null);
+        cancel = false;
 
         // Store values at the time of the login attempt.
         String cardNumber = etCardNumber.getText().toString().trim();
