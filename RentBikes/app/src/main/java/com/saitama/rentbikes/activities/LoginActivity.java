@@ -33,6 +33,7 @@ import com.saitama.rentbikes.utils.Utils;
 
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,19 +173,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (loginResponse.getAccessToken() == null) {
                             Utils.toast("Sorry, try again.", 0, getApplicationContext());
                         } else {
-
                             Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
                             Utils.toast("Welcome back!", 0, getApplicationContext());
                             Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(i);
-
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showProgress(false);
-                        String stringResponse = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        String stringResponse = new String(error.networkResponse.data, Charset.forName("UTF-8"));
                         Gson gson = new Gson();
                         ResponseError responseError = gson.fromJson(stringResponse,
                                 ResponseError.class);
@@ -206,7 +205,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 //add to the request queue
                 requestQueue.add(loginRequest);
-
 
             } catch (Exception e) {
                 Utils.toast("Sorry, try again later.", 0, getApplicationContext());
