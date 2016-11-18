@@ -12,4 +12,5 @@
     <string name="error_field_required">This field is required</string>
     <string name="title_activity_maps">Saitama Bicycles Rent</string>
     <string name="title_activity_maps2">Map</string>
+    <string name="my_position">My position</string>
 </resources>
