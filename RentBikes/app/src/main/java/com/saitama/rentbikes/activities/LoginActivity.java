@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
                             Utils.toast("Welcome back!", 0, getApplicationContext());
-                            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                             startActivity(i);
                         }
                     }
@@ -183,12 +183,18 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showProgress(false);
-                        String stringResponse = new String(error.networkResponse.data, Charset.forName("UTF-8"));
-                        Gson gson = new Gson();
-                        ResponseError responseError = gson.fromJson(stringResponse,
-                                ResponseError.class);
+                        String message = "";
+                        try{
+                            String stringResponse = new String(error.networkResponse.data, Charset.forName("UTF-8"));
+                            Gson gson = new Gson();
+                            ResponseError responseError = gson.fromJson(stringResponse,
+                                    ResponseError.class);
+                            message = responseError.getMessage() + " (" + responseError.getCode() + ")";
+                        }catch (Exception e){
+                            message = "Sorry, try again later.";
+                        }
+                        Utils.toast(message, 0, getApplicationContext());
 
-                        Utils.toast(responseError.getMessage() + " (" + responseError.getCode() + ")", 0, getApplicationContext());
 
                     }
                 }) {

@@ -5,64 +5,32 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
- * @author gabrielvega
- * @since 1.0.0
- * @version 1.0.0
- * created 2016-11-17
+ * Created by gabrielvega on 2016-11-17.
  */
 
 public class PlacesResponse implements Parcelable {
 
-    @SerializedName("location")
-    private Location location;
+    @SerializedName("results")
+    ArrayList<Place> places;
 
-    @SerializedName("id")
-    private String placeId;
-
-    /** TODO
-     * json = gson.fromJson(new InputStreamReader(is), parseType);
-     * to
-     * json = gson.fromJson(new InputStreamReader(is,"UTF-8"), parseType);
-     */
-    @SerializedName("name")
-    private String name;
-
-    public Location getLocation() {
-        return location;
+    public ArrayList<Place> getPlaces() {
+        return places;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setPlaces(ArrayList<Place> places) {
+        this.places = places;
     }
 
     protected PlacesResponse(Parcel in) {
-        location = in.readParcelable(Location.class.getClassLoader());
-        placeId = in.readString();
-        name = in.readString();
+        places = in.createTypedArrayList(Place.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(location, flags);
-        dest.writeString(placeId);
-        dest.writeString(name);
+        dest.writeTypedList(places);
     }
 
     @Override
