@@ -36,7 +36,7 @@
 
         <EditText
             android:id="@+id/et_email"
-            android:text="crossover@crossover.com"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/et_password"
-            android:text="crossover"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
@@ -57,8 +57,7 @@
 
         <Button
             android:id="@+id/email_sign_up_button"
-            style="?android:textAppearanceSmall"
-            android:background="@color/wallet_highlighted_text_holo_dark"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

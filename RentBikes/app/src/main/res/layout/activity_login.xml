@@ -16,15 +16,15 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
         <ImageView
@@ -36,16 +36,17 @@
 
         <EditText
             android:id="@+id/et_email"
-            android:text="crossover@crossover.com"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:text="crossover@crossover.com" />
 
         <EditText
             android:id="@+id/et_password"
-            android:text="crossover"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
@@ -53,22 +54,20 @@
             android:imeActionLabel="@string/btn_sign_in"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:text="crossover" />
 
         <Button
             android:id="@+id/email_sign_in_button"
-            style="?android:textAppearanceSmall"
-            android:background="@color/wallet_highlighted_text_holo_dark"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="16dp"
-            android:text="@string/btn_sign_in"
-            android:textStyle="bold" />
-
+            android:text="@string/btn_sign_in" />
 
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/tv_sign_up_button"
         android:layout_width="wrap_content"
@@ -77,5 +76,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="@string/action_sign_up"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 </RelativeLayout>
