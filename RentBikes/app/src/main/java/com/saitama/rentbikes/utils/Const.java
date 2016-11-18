@@ -10,16 +10,8 @@ package com.saitama.rentbikes.utils;
 public enum Const {
     SHARED_PREFERENCES_NAME("4g308rbeji24g8hwei32f0h8ewi"),
     ACCESSTOKEN("accesstoken"),
-    LOGINRESPONSE("loginresponse"),
-    APPROVEDAMOUNT("approvedamount"),
-    REJECTEDAMOUNT("rejectedamount"),
-    APPROVEDCHARGES("approvedcharges"),
-    REJECTEDCHARGES("rejectedcharges"),
-    CLIENTS("clients"),
-    DEVICE_TOKEN("devicetoken"),
-    BLOCKED("blocked"),
-    LEAVINGAPP("leavingapp"),
-    PIN("pin");
+    PLACEID("placeid"),
+    TITLE("title");
 
     private final String value;
 

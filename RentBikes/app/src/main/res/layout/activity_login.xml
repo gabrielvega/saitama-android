@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_centerInParent="true"
         android:visibility="gone" />
 
     <LinearLayout
@@ -30,11 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/icon" />
+            android:src="@mipmap/bike" />
 
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/et_email"
             android:text="crossover@crossover.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
             android:maxLines="1" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/et_password"
             android:text="crossover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,20 +58,24 @@
         <Button
             android:id="@+id/email_sign_in_button"
             style="?android:textAppearanceSmall"
+            android:background="@color/wallet_highlighted_text_holo_dark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="16dp"
             android:text="@string/action_sign_in"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/email_sign_up_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/action_sign_up"
-            android:textStyle="bold" />
+
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/email_sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="@string/action_sign_up"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -1,7 +1,5 @@
 package com.saitama.rentbikes.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +32,6 @@ import com.saitama.rentbikes.utils.Utils;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,8 +48,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     // UI references.
-    private EditText mEmailView;
-    private EditText mPasswordView;
+    private EditText etEmail;
+    private EditText etPassword;
     private View mProgressView;
     private View mLoginFormView;
     private int mStatusCode;
@@ -65,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
      * Volley RequestQueue
      */
     RequestQueue requestQueue;
+
+    boolean cancel = false;
+    View focusView = null;
 
     /**
      * Login URL
@@ -80,10 +80,10 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
+        etEmail = (EditText) findViewById(R.id.et_email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etPassword = (EditText) findViewById(R.id.et_password);
+        etPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -114,31 +114,29 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        etEmail.setError(null);
+        etPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+            etPassword.setError(getString(R.string.error_invalid_password));
+            focusView = etPassword;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            etEmail.setError(getString(R.string.error_field_required));
+            focusView = etEmail;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+            etEmail.setError(getString(R.string.error_invalid_email));
+            focusView = etEmail;
             cancel = true;
         }
 
@@ -151,8 +149,8 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
 
-            String mEmail = mEmailView.getText().toString().trim();
-            String mPassword = mPasswordView.getText().toString().trim();
+            String mEmail = etEmail.getText().toString().trim();
+            String mPassword = etPassword.getText().toString().trim();
 
 
             try {
@@ -184,13 +182,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         showProgress(false);
                         String message = "";
-                        try{
+                        try {
                             String stringResponse = new String(error.networkResponse.data, Charset.forName("UTF-8"));
                             Gson gson = new Gson();
                             ResponseError responseError = gson.fromJson(stringResponse,
                                     ResponseError.class);
                             message = responseError.getMessage() + " (" + responseError.getCode() + ")";
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             message = "Sorry, try again later.";
                         }
                         Utils.toast(message, 0, getApplicationContext());
@@ -232,35 +230,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        Utils.showProgress(getApplicationContext(), mLoginFormView, mProgressView, show);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
     }
 }
 
