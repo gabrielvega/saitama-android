@@ -34,13 +34,6 @@ public class Utils {
     public static void setAccessToken(Context ctx, String cid) {
         SharedPreferences pref = ctx.getSharedPreferences(Const.SHARED_PREFERENCES_NAME.getValue(), 0);
         SharedPreferences.Editor editor = pref.edit();
-
-        Log.i("ACCESSTOKEN = ", Const.ACCESSTOKEN.getValue());
-        Log.i("encrypt(ACCESSTOKEN) = ", encrypt(Const.ACCESSTOKEN.getValue()));
-
-        Log.i("cid = ", cid);
-        Log.i("encrypt(cid) = ", encrypt(cid));
-
         editor.putString(encrypt(Const.ACCESSTOKEN.getValue()), encrypt(cid));
         editor.commit();
     }
