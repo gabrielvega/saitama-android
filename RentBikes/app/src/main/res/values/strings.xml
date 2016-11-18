@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Rent Bikes</string>
+    <string name="app_name">Saitama\'s Bike Rent</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_signin">Welcome to Saitama\'s Bike Rent</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="btn_sign_in">Sign in</string>
@@ -13,7 +14,7 @@
     <string name="my_position">My position</string>
 
     <!-- Strings related to places (map) -->
-    <string name="title_activity_maps">Saitama Bicycles Rent</string>
+    <string name="title_activity_maps">Saitama\' Bike Rent</string>
 
     <!-- Strings related to rent -->
     <string name="error_invalid_card_number">This card number is invalid</string>
@@ -24,5 +25,6 @@
     <!-- Strings related to signup -->
     <string name="title_activity_signup">Signup</string>
     <string name="btn_sign_up">Sign up</string>
+    <string name="description_form_sign_up">Dear user, please fill out this form to signup</string>
 
 </resources>

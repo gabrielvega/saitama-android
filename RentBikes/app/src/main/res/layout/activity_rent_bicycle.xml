@@ -45,7 +45,7 @@
 
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Large"
+                    style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -75,7 +75,7 @@
                 </LinearLayout>
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Large"
+                    style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -83,18 +83,20 @@
 
                 <EditText
                     android:id="@+id/et_card_number"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Credit card number"
-                    android:maxLength="16"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="16" />
 
                 <EditText
                     android:id="@+id/et_name_on_card"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:hint="Name on card" />
+                    android:hint="Name on card"
+                    android:lines="1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -143,7 +145,7 @@
 
     <Button
         android:id="@+id/btn_pay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

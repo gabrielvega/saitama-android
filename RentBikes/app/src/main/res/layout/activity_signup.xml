@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,55 +16,70 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:layout_alignParentBottom="true"
+    <RelativeLayout
         android:id="@+id/signup_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/img_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/bike" />
+            android:src="@mipmap/logo" />
 
-
-        <EditText
-            android:id="@+id/et_email"
-            style="@style/EditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/et_password"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:imeActionId="@+id/signup"
-            android:imeActionLabel="@string/btn_sign_up"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1" />
-
-        <Button
-            android:id="@+id/email_sign_up_button"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/btn_sign_up"
-            android:textStyle="bold" />
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
 
+            <TextView
+                android:id="@+id/tv_sign_up_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="@string/description_form_sign_up"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-    </LinearLayout>
-</RelativeLayout>
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+
+            <EditText
+                android:id="@+id/et_password"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/signup"
+                android:imeActionLabel="@string/btn_sign_up"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/email_sign_up_button"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/btn_sign_up"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
