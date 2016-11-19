@@ -18,11 +18,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.TestCase.assertEquals;
 
 
 /**
@@ -39,8 +41,8 @@ public class SignupActivityTest {
     public static final String TYPED_PASSWORD = "crossover";
 
     @Rule
-    public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
-            LoginActivity.class);
+    public ActivityTestRule<SignupActivity> mActivityRule = new ActivityTestRule<>(
+            SignupActivity.class);
 
     @Test
     public void changeText_sameActivity() {
@@ -53,6 +55,35 @@ public class SignupActivityTest {
         // Check that the text was changed.
         onView(withId(R.id.et_email)).check(matches(withText(TYPED_EMAIL)));
         onView(withId(R.id.et_password)).check(matches(withText(TYPED_PASSWORD)));
+    }
+
+    @Test
+    public void formValidationPassword_sameActivity() {
+        // Type text and then press the button.
+        onView(withId(R.id.et_password))
+                .perform(typeText(TYPED_PASSWORD), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_signup)).perform(click());
+
+        // Check that the text was changed.
+        assertEquals(true, mActivityRule.getActivity().cancel);
+
+    }
+
+
+    @Test
+    public void performSignup_otherActivity() {
+        // Type text and then press the button.
+        onView(withId(R.id.et_email))
+                .perform(typeText(TYPED_EMAIL), closeSoftKeyboard());
+        onView(withId(R.id.et_password))
+                .perform(typeText(TYPED_PASSWORD), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_signup)).perform(click());
+
+        // Check that the text was changed.
+        assertEquals(true, mActivityRule.getActivity().cancel);
+
     }
 
 }

@@ -14,6 +14,10 @@ public class LoginResponse implements Parcelable {
 
     private String accessToken;
 
+    public LoginResponse() {
+
+    }
+
     protected LoginResponse(Parcel in) {
         accessToken = in.readString();
     }

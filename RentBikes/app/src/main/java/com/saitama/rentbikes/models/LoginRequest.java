@@ -5,14 +5,17 @@ import android.os.Parcelable;
 
 /**
  * @author gabrielvega
- * @since 1.0.0
  * @version 1.0.0
- * created 2016-11-17
+ *          created 2016-11-17
+ * @since 1.0.0
  */
 
 public class LoginRequest implements Parcelable {
     private String email;
     private String password;
+
+    public LoginRequest() {
+    }
 
     protected LoginRequest(Parcel in) {
         email = in.readString();

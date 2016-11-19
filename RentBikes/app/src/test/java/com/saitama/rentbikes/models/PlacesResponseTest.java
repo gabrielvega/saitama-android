@@ -9,6 +9,16 @@ import static org.junit.Assert.*;
  * Created by gabrielvega on 2016-11-19.
  */
 public class PlacesResponseTest {
+    @Test
+    public void getPlaces1() throws Exception {
+
+    }
+
+    @Test
+    public void setPlaces1() throws Exception {
+
+    }
+
     @Before
     public void setUp() throws Exception {
 

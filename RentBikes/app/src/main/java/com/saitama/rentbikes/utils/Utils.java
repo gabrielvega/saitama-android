@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -93,6 +94,16 @@ public class Utils {
      */
     public static String decrypt(String input) {
         return new String(Base64.decode(input, Base64.DEFAULT));
+    }
+
+    /**
+     * To validate an email address
+     * @param email to be validated
+     * @return If it's ok return true otherwise false
+     */
+    public static boolean isEmailValid(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
     }
 
 }

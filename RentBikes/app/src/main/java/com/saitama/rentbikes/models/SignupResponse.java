@@ -5,14 +5,18 @@ import android.os.Parcelable;
 
 /**
  * @author gabrielvega
- * @since 1.0.0
  * @version 1.0.0
- * created 2016-11-17
+ *          created 2016-11-17
+ * @since 1.0.0
  */
 
 public class SignupResponse implements Parcelable {
 
     private String accessToken;
+
+    public SignupResponse() {
+
+    }
 
     protected SignupResponse(Parcel in) {
         accessToken = in.readString();
