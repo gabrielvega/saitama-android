@@ -93,13 +93,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        checkToken();
         setupUI();
 
     }
 
     private void checkToken() {
-        if (Utils.getAccessToken(getApplicationContext()) != null) {
+        String accessToken = Utils.getAccessToken(getApplicationContext());
+        if (accessToken != null & accessToken.length() > 0) {
             Utils.toast("Welcome back!", 0, getApplicationContext());
             mapsIntent();
         }
@@ -249,6 +249,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showProgress(false);
+        checkToken();
     }
 
     private boolean isEmailValid(String email) {
