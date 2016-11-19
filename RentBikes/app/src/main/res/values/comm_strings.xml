@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="url_base">http://10.10.10.109:8080/api/v1</string>
+    <string name="url_base">http://192.168.0.107:8080/api/v1</string>
 
     <!-- API Endpoints -->
     <string name="signup">/register</string>

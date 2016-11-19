@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Saitama\'s Bike Rent</string>
 
+    <!-- Strings related to navigation drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Strings related to menu -->
+    <string name="action_about">About</string>
+
     <!-- Strings related to login -->
     <string name="title_activity_signin">Welcome to Saitama\'s Bike Rent</string>
     <string name="prompt_email">Email</string>

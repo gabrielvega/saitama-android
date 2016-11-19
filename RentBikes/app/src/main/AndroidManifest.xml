@@ -33,8 +33,7 @@
 
         <activity
             android:name=".activities.SignupActivity"
-            android:label="@string/btn_sign_up">
-        </activity>
+            android:label="@string/btn_sign_up"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -43,6 +42,9 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_signin" />
         <activity android:name=".activities.RentBicycleActivity"></activity>
     </application>
 
