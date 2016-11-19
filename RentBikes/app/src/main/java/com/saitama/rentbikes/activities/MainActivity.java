@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_main);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -72,6 +74,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    /**
+     * Nothing to show at the moment. Just for future use.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,12 +85,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Nothing to show at the moment. Just for future use.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -98,9 +106,7 @@ public class MainActivity extends AppCompatActivity
 //        String title = getString(R.string.app_name);
 
         if (id == R.id.nav_map) {
-
-            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(i);
+            fragment = new MapsFragment();
 
 
         } else if (id == R.id.nav_view_settings) {
@@ -117,6 +123,7 @@ public class MainActivity extends AppCompatActivity
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }
+
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);

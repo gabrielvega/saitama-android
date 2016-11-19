@@ -176,7 +176,7 @@ public class SignupActivity extends AppCompatActivity {
                         } else {
                             Utils.setAccessToken(getApplicationContext(), signupResponse.getAccessToken());
                             Utils.toast("Welcome!", 0, getApplicationContext());
-                            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+                            Intent i = new Intent(getApplicationContext(), MapsFragment.class);
                             startActivity(i);
                         }
                     }
