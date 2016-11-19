@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -172,11 +173,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
                         if (signupResponse.getAccessToken() == null) {
-                            Utils.toast("Sorry, try again.", 0, getApplicationContext());
+                            Snackbar.make(mSignupFormView, R.string.message_error, Snackbar.LENGTH_LONG).show();
                         } else {
                             Utils.setAccessToken(getApplicationContext(), signupResponse.getAccessToken());
-                            Utils.toast("Welcome!", 0, getApplicationContext());
-                            Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                         }
                     }
@@ -192,9 +192,9 @@ public class SignupActivity extends AppCompatActivity {
                                     ResponseError.class);
                             message = responseError.getMessage() + " (" + responseError.getCode() + ")";
                         } catch (Exception e) {
-                            message = "Sorry, try again later.";
+                            message = getString(R.string.message_error);
                         }
-                        Utils.toast(message, 0, getApplicationContext());
+                        Snackbar.make(mSignupFormView, message, Snackbar.LENGTH_LONG).show();
 
 
                     }

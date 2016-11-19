@@ -5,21 +5,21 @@
         <item
             android:id="@+id/nav_map"
             android:icon="@mipmap/android_map"
-            android:title="Cobrar" />
+            android:title="@string/menu_map" />
 
         <item
             android:id="@+id/nav_view_settings"
             android:icon="@mipmap/android_settings"
-            android:title="Configuración" />
+            android:title="@string/menu_settings" />
         <item
             android:id="@+id/nav_view_help"
             android:icon="@mipmap/android_help"
-            android:title="Ayuda" />
+            android:title="@string/menu_help" />
 
         <item
             android:id="@+id/nav_exit"
             android:icon="@mipmap/android_log_out"
-            android:title="Salir" />
+            android:title="@string/menu_exit" />
 
     </group>
 

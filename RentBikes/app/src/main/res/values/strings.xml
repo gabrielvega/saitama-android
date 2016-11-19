@@ -34,4 +34,17 @@
     <string name="btn_sign_up">Sign up</string>
     <string name="description_form_sign_up">Dear user, please fill out this form to signup</string>
 
+    <!-- Strings related to navigation drawer menu-->
+    <string name="menu_map">Map</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_exit">Exit</string>
+    <string name="alert_title_logout">Logout</string>
+    <string name="alert_message_logout">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="message_error">Sorry, try again.</string>
+    <string name="message_coming_soon">Coming soon...</string>
+    <string name="message_welcome_back">Welcome back!</string>
+
 </resources>

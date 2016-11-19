@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -100,7 +101,9 @@ public class LoginActivity extends AppCompatActivity {
     private void checkToken() {
         String accessToken = Utils.getAccessToken(getApplicationContext());
         if (accessToken != null & accessToken.length() > 0) {
-            Utils.toast("Welcome back!", 0, getApplicationContext());
+            Snackbar.make(mLoginFormView, R.string.message_welcome_back, Snackbar.LENGTH_LONG)
+                    .show();
+
             mapsIntent();
         }
     }
@@ -199,10 +202,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         if (loginResponse.getAccessToken() == null) {
-                            Utils.toast("Sorry, try again.", 0, getApplicationContext());
+                            Snackbar.make(mLoginFormView, R.string.message_error, Snackbar.LENGTH_LONG)
+                                    .show();
+
                         } else {
                             Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
-                            Utils.toast("Welcome back!", 0, getApplicationContext());
                             mapsIntent();
                         }
                     }
@@ -218,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                                     ResponseError.class);
                             message = responseError.getMessage() + " (" + responseError.getCode() + ")";
                         } catch (Exception e) {
-                            message = "Sorry, try again later.";
+                            message = getString(R.string.message_error);
                         }
                         Utils.toast(message, 0, getApplicationContext());
 
@@ -240,7 +244,9 @@ public class LoginActivity extends AppCompatActivity {
                 requestQueue.add(loginRequest);
 
             } catch (Exception e) {
-                Utils.toast("Sorry, try again later.", 0, getApplicationContext());
+                Snackbar.make(mLoginFormView, R.string.message_error, Snackbar.LENGTH_LONG)
+                        .show();
+
             }
         }
     }

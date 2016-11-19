@@ -27,6 +27,7 @@ import com.saitama.rentbikes.utils.Utils;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,14 +74,6 @@ public class RentBicycleActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setupUI();
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                attempPay();
-
-            }
-        });
 
     }
 
@@ -98,10 +91,25 @@ public class RentBicycleActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.view_progress_pay);
         tvPlaceTitle.setText(placeTitle);
 
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                attempPay();
+
+            }
+        });
+
     }
 
     private void attempPay() {
         showProgress(true);
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        //Current date in format yyyymm
+        int currentDate = (currentYear * 100) + currentMonth;
+
         etCardNumber.setError(null);
         etNameOnCard.setError(null);
         etMonth.setError(null);
@@ -115,21 +123,39 @@ public class RentBicycleActivity extends AppCompatActivity {
         String month = etMonth.getText().toString().trim();
         String year = etYear.getText().toString().trim();
         String code = etCode.getText().toString().trim();
+        //Expiration date in format yyyymm
+        int expiration = 0;
+        if (!TextUtils.isEmpty(year) && !TextUtils.isEmpty(month))
+            expiration = ((Integer.parseInt(year) + 2000) * 100) + Integer.parseInt(month);
 
-        if (TextUtils.isEmpty(cardNumber)) {
-            etCardNumber.setError(getString(R.string.error_field_required));
-            focusView = etCardNumber;
+        if (TextUtils.isEmpty(code)) {
+            etCode.setError(getString(R.string.error_field_required));
+            focusView = etCode;
             cancel = true;
-        } else if (cardNumber.length() != 16) {
-            etCardNumber.setError(getString(R.string.error_invalid_card_number));
-            focusView = etCardNumber;
+        } else if (code.length() != 3) {
+            etCode.setError(getString(R.string.error_invalid_code));
+            focusView = etCode;
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(nameOnCard)) {
-            etNameOnCard.setError(getString(R.string.error_field_required));
-            focusView = etNameOnCard;
+
+        if (TextUtils.isEmpty(year)) {
+            etYear.setError(getString(R.string.error_field_required));
+            focusView = etYear;
             cancel = true;
+        } else {
+
+            if (expiration < currentDate) {
+                etMonth.setError(getString(R.string.error_invalid_month));
+                focusView = etMonth;
+                cancel = true;
+            }
+
+            if (year.length() != 2 || ((2000 + Integer.parseInt(year) < currentYear))) {
+                etYear.setError(getString(R.string.error_invalid_year));
+                focusView = etYear;
+                cancel = true;
+            }
         }
 
         if (TextUtils.isEmpty(month)) {
@@ -142,25 +168,23 @@ public class RentBicycleActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(year)) {
-            etYear.setError(getString(R.string.error_field_required));
-            focusView = etYear;
-            cancel = true;
-        } else if (year.length() != 2) {
-            etYear.setError(getString(R.string.error_invalid_year));
-            focusView = etYear;
+        if (TextUtils.isEmpty(nameOnCard)) {
+            etNameOnCard.setError(getString(R.string.error_field_required));
+            focusView = etNameOnCard;
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(code)) {
-            etCode.setError(getString(R.string.error_field_required));
-            focusView = etCode;
+
+        if (TextUtils.isEmpty(cardNumber)) {
+            etCardNumber.setError(getString(R.string.error_field_required));
+            focusView = etCardNumber;
             cancel = true;
-        } else if (code.length() != 3) {
-            etCode.setError(getString(R.string.error_invalid_code));
-            focusView = etCode;
+        } else if (cardNumber.length() != 16) {
+            etCardNumber.setError(getString(R.string.error_invalid_card_number));
+            focusView = etCardNumber;
             cancel = true;
         }
+
 
         if (cancel) {
             showProgress(false);
@@ -186,7 +210,7 @@ public class RentBicycleActivity extends AppCompatActivity {
 
 
                     if (rentResponse.getMessage() == null) {
-                        Utils.toast("Sorry, try again.", 0, getApplicationContext());
+                        Utils.toast(getString(R.string.message_error), 0, getApplicationContext());
                     } else {
                         Utils.toast(rentResponse.getMessage(), 0, getApplicationContext());
                         finish();
