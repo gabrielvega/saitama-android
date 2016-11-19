@@ -37,9 +37,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_below="@+id/img_logo"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
 
             <EditText
@@ -48,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:text="crossover@crossover.com" />
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/et_password"
@@ -60,11 +59,10 @@
                 android:imeActionLabel="@string/btn_sign_in"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:text="crossover" />
+                android:maxLines="1" />
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/btn_signin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

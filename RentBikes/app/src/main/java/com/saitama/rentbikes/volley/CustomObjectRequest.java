@@ -9,7 +9,7 @@ import org.json.JSONObject;
 /**
  * Created by gabrielvega on 2016-11-17.
  */
-
+@Deprecated
 public class CustomObjectRequest extends JsonObjectRequest {
 
     private int mStatusCode;

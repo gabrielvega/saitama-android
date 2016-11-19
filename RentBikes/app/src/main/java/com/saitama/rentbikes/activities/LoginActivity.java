@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.et_password)
     protected EditText etPassword;
 
-    @BindView(R.id.email_sign_in_button)
+    @BindView(R.id.btn_signin)
     protected Button btnSignin;
 
     @BindView(R.id.tv_sign_up_button)
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         });
 
-        btnSignin = (Button) findViewById(R.id.email_sign_in_button);
+        btnSignin = (Button) findViewById(R.id.btn_signin);
         btnSignin.setOnClickListener(view -> attemptLogin());
 
         tvSignup.setOnClickListener(view -> {
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password)) {
             etPassword.setError(getString(R.string.error_invalid_password));
             focusView = etPassword;
             cancel = true;
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_field_required));
             focusView = etEmail;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!Utils.isEmailValid(email)) {
             etEmail.setError(getString(R.string.error_invalid_email));
             focusView = etEmail;
             cancel = true;
@@ -256,15 +256,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         showProgress(false);
         checkToken();
-    }
-
-    private boolean isEmailValid(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
     }
 
     /**

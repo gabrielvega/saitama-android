@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
     protected EditText etEmail;
     @BindView(R.id.et_password)
     protected EditText etPassword;
-    @BindView(R.id.email_sign_up_button)
+    @BindView(R.id.btn_signup)
     protected Button btnSignup;
 
     /**
@@ -124,7 +124,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password)) {
             etPassword.setError(getString(R.string.error_invalid_password));
             focusView = etPassword;
             cancel = true;
@@ -135,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_field_required));
             focusView = etEmail;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!Utils.isEmailValid(email)) {
             etEmail.setError(getString(R.string.error_invalid_email));
             focusView = etEmail;
             cancel = true;
@@ -223,15 +223,6 @@ public class SignupActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showProgress(false);
-    }
-
-    private boolean isEmailValid(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
     }
 
     /**
