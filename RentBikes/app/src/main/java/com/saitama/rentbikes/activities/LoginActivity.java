@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkToken() {
         String accessToken = Utils.getAccessToken(getApplicationContext());
         if (accessToken != null & accessToken.length() > 0) {
-            Snackbar.make(mLoginFormView, "Welcome back!", Snackbar.LENGTH_LONG)
+            Snackbar.make(mLoginFormView, R.string.message_welcome_back, Snackbar.LENGTH_LONG)
                     .show();
 
             mapsIntent();
@@ -202,12 +202,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         if (loginResponse.getAccessToken() == null) {
-                            Snackbar.make(mLoginFormView, "Sorry, try again.", Snackbar.LENGTH_LONG)
+                            Snackbar.make(mLoginFormView, R.string.message_error, Snackbar.LENGTH_LONG)
                                     .show();
 
                         } else {
-                            Snackbar.make(mLoginFormView, "Welcome back!", Snackbar.LENGTH_LONG)
-                                    .show();
                             Utils.setAccessToken(getApplicationContext(), loginResponse.getAccessToken());
                             mapsIntent();
                         }
@@ -224,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                                     ResponseError.class);
                             message = responseError.getMessage() + " (" + responseError.getCode() + ")";
                         } catch (Exception e) {
-                            message = "Sorry, try again later.";
+                            message = getString(R.string.message_error);
                         }
                         Utils.toast(message, 0, getApplicationContext());
 
@@ -246,7 +244,9 @@ public class LoginActivity extends AppCompatActivity {
                 requestQueue.add(loginRequest);
 
             } catch (Exception e) {
-                Utils.toast("Sorry, try again later.", 0, getApplicationContext());
+                Snackbar.make(mLoginFormView, R.string.message_error, Snackbar.LENGTH_LONG)
+                        .show();
+
             }
         }
     }
